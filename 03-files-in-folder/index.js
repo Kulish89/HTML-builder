@@ -17,7 +17,7 @@ function getFilesinFolder(pathToFolder) {
                 console.log(
                   `${path.parse(file.name).name} - ${path
                     .parse(file.name)
-                    .ext.slice(1)} - ${stats.size}`
+                    .ext.slice(1)} - ${stats.size}kb`
                 );
               } else {
                 console.log(
