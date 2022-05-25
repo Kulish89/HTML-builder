@@ -7,8 +7,8 @@ function getFilesinFolder(pathToFolder) {
     if (!error) {
       for (const file of files) {
         if (file.isDirectory()) {
-          pathToFolder = path.join(pathToFolder, file.name);
-          getFilesinFolder(pathToFolder);
+          let newPathToFolder = path.join(pathToFolder, file.name);
+          getFilesinFolder(newPathToFolder);
         } else {
           fs.stat(path.join(pathToFolder, file.name), (err, stats) => {
             if (err) console.log(err);
@@ -21,7 +21,7 @@ function getFilesinFolder(pathToFolder) {
                 );
               } else {
                 console.log(
-                  `${path.parse(file.name).name.slice(1)} - ${stats.size}`
+                  `${path.parse(file.name).name.slice(1)} - ${stats.size}kb`
                 );
               }
             }

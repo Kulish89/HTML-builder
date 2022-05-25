@@ -1,6 +1,7 @@
 const fs = require("fs");
+const { format } = require("path");
 const path = require("path");
-const { stdout, stdin, stderr } = process;
+const { stdout, stdin } = process;
 
 const writeStream = fs.createWriteStream(path.join(__dirname, "text.txt"));
 
@@ -11,17 +12,13 @@ const readStream = fs.createReadStream(
 );
 
 stdin.on("data", (data) => {
-  if (data.toString().length === 2) {
+  const buffer = Buffer.from("exit");
+  if (data == buffer) {
+    process.exit(0);
+  } else if (data.toString().length === 2) {
     stdout.write("Please, inter your message!!!\n");
   } else {
     writeStream.write(data);
   }
 });
-
-process.on("exit", (code) => {
-  if (code === 0) {
-    stdout.write("Ok, good by!");
-  } else {
-    stderr.write(`Ooops, something happens, error - ${code}`);
-  }
-});
+process.on("exit", () => console.log("Ok, good by!"));
