@@ -9,16 +9,16 @@ const copyDir = (dirSource, dirTarget) => {
         console.log("Copy dir " + dirSource + " to " + dirTarget);
 
         fs.promises.readdir(dirSource, { withFileTypes: true }).then((files) =>
-          files.forEach((v) => {
-            if (v.isFile()) {
+          files.forEach((file) => {
+            if (file.isFile()) {
               fs.promises.copyFile(
-                path.join(dirSource, v.name),
-                path.join(dirTarget, v.name)
+                path.join(dirSource, file.name),
+                path.join(dirTarget, file.name)
               );
-            } else if (v.isDirectory()) {
+            } else if (file.isDirectory()) {
               copyDir(
-                path.join(dirSource, v.name, "/"),
-                path.join(dirTarget, v.name, "/")
+                path.join(dirSource, file.name, "/"),
+                path.join(dirTarget, file.name, "/")
               );
             }
           })
